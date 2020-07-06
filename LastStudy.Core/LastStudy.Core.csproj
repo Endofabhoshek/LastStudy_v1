@@ -54,12 +54,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Institute.cs" />
+    <Compile Include="Entities\LSRole.cs" />
     <Compile Include="Entities\LSUser.cs" />
+    <Compile Include="Entities\LSUserClaim.cs" />
+    <Compile Include="Entities\LSUserLogin.cs" />
+    <Compile Include="Entities\LSUserRole.cs" />
+    <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

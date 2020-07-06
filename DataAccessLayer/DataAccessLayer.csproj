@@ -106,6 +106,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbContext\LSDbContext.cs" />
+    <Compile Include="Migrations\202007062104428_InitialMigration.cs" />
+    <Compile Include="Migrations\202007062104428_InitialMigration.Designer.cs">
+      <DependentUpon>202007062104428_InitialMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -118,6 +122,11 @@
       <Project>{6FC6D71F-069F-43EE-A43C-502DDD0061EC}</Project>
       <Name>LastStudy.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202007062104428_InitialMigration.resx">
+      <DependentUpon>202007062104428_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

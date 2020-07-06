@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace LastStudy.Core.Entities
 {
-    public class LSUser : IdentityUser<int, LSUserLogin, LSUserRole, LSUserClaim>, IEntity
+    public class LSUserRole : IdentityUserRole<int>, IEntity
     {
-        public string FullName { get; set; }
-        public DateTime DateCreated { get; set; }
+        public int Id { get; set; }
+        public LSUser LSUser { get; set; }
+        public LSRole LSRole { get; set; }
     }
 }
