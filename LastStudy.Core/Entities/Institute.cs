@@ -13,7 +13,6 @@ namespace LastStudy.Core.Entities
         public string Name { get; set; }
         public string Address { get; set; } // Need to add many properties here
         public string CIty { get; set; }
-        public string State { get; set; }
         public string Country { get; set; }
         public string ZipCode { get; set; }
     }
