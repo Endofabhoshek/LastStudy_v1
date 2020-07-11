@@ -105,13 +105,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbContext\LSDbContext.cs" />
-    <Compile Include="Migrations\202007062104428_InitialMigration.cs" />
-    <Compile Include="Migrations\202007062104428_InitialMigration.Designer.cs">
-      <DependentUpon>202007062104428_InitialMigration.cs</DependentUpon>
+    <Compile Include="DbContexts\LSDbContext.cs" />
+    <Compile Include="InstituteDatabase\202007110645464_InitialMigration.cs" />
+    <Compile Include="InstituteDatabase\202007110645464_InitialMigration.Designer.cs">
+      <DependentUpon>202007110645464_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InstituteDatabase\Configuration.cs" />
+    <Compile Include="Migrations\202007102030133_InitialMIgration.cs" />
+    <Compile Include="Migrations\202007102030133_InitialMIgration.Designer.cs">
+      <DependentUpon>202007102030133_InitialMIgration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\InstituteRepository.cs" />
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -124,8 +131,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202007062104428_InitialMigration.resx">
-      <DependentUpon>202007062104428_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="InstituteDatabase\202007110645464_InitialMigration.resx">
+      <DependentUpon>202007110645464_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007102030133_InitialMIgration.resx">
+      <DependentUpon>202007102030133_InitialMIgration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

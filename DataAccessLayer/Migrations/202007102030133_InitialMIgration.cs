@@ -3,10 +3,20 @@ namespace DataAccessLayer.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialMigration : DbMigration
+    public partial class InitialMIgration : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.institute_connections",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        InstituteCode = c.String(nullable: false, unicode: false),
+                        DatabaseName = c.String(nullable: false, unicode: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
             CreateTable(
                 "dbo.lsroles",
                 c => new
@@ -45,6 +55,8 @@ namespace DataAccessLayer.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         FullName = c.String(unicode: false),
                         DateCreated = c.DateTime(nullable: false, precision: 0),
+                        IsInstituteAdmin = c.Boolean(nullable: false),
+                        InstituteConnectionId = c.Int(nullable: false),
                         Email = c.String(maxLength: 256, storeType: "nvarchar"),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(unicode: false),
@@ -58,6 +70,8 @@ namespace DataAccessLayer.Migrations
                         UserName = c.String(nullable: false, maxLength: 256, storeType: "nvarchar"),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.institute_connections", t => t.InstituteConnectionId, cascadeDelete: true)
+                .Index(t => t.InstituteConnectionId)
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             
             CreateTable(
@@ -93,11 +107,13 @@ namespace DataAccessLayer.Migrations
             DropForeignKey("dbo.lsuser_roles", "LSUser_Id", "dbo.lsusers");
             DropForeignKey("dbo.lsuser_roles", "UserId", "dbo.lsusers");
             DropForeignKey("dbo.lsuser_logins", "UserId", "dbo.lsusers");
+            DropForeignKey("dbo.lsusers", "InstituteConnectionId", "dbo.institute_connections");
             DropForeignKey("dbo.lsuser_claims", "UserId", "dbo.lsusers");
             DropForeignKey("dbo.lsuser_roles", "LSRole_Id", "dbo.lsroles");
             DropIndex("dbo.lsuser_logins", new[] { "UserId" });
             DropIndex("dbo.lsuser_claims", new[] { "UserId" });
             DropIndex("dbo.lsusers", "UserNameIndex");
+            DropIndex("dbo.lsusers", new[] { "InstituteConnectionId" });
             DropIndex("dbo.lsuser_roles", new[] { "LSUser_Id" });
             DropIndex("dbo.lsuser_roles", new[] { "LSRole_Id" });
             DropIndex("dbo.lsuser_roles", new[] { "RoleId" });
@@ -108,6 +124,7 @@ namespace DataAccessLayer.Migrations
             DropTable("dbo.lsusers");
             DropTable("dbo.lsuser_roles");
             DropTable("dbo.lsroles");
+            DropTable("dbo.institute_connections");
         }
     }
 }

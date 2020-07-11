@@ -12,5 +12,8 @@ namespace LastStudy.Core.Entities
     {
         public string FullName { get; set; }
         public DateTime DateCreated { get; set; }
+        public bool IsInstituteAdmin { get; set; }
+        public InstituteConnection Institute { get; set; }
+        public int InstituteConnectionId { get; set; }
     }
 }

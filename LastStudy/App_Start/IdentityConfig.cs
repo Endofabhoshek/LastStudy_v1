@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.DbContext;
+﻿using DataAccessLayer.DbContexts;
 using LastStudy.Core.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -23,10 +23,10 @@ namespace LastStudy.App_Start
 
         }
 
-        public static LSUserManager Create(IdentityFactoryOptions<LSUserManager> options, IOwinContext context)
+        public static LSUserManager Create(IdentityFactoryOptions<LSUserManager> options, IOwinContext owincontext)
         {
-            LSDbContext lsDbContext = context.Get<LSDbContext>();
-            var manager = new LSUserManager(new UserStore<LSUser, LSRole, int, LSUserLogin, LSUserRole, LSUserClaim>(lsDbContext));
+            //LSDbContext lsDbContext = context.Get<LSDbContext>();
+            var manager = new LSUserManager(new UserStore<LSUser, LSRole, int, LSUserLogin, LSUserRole, LSUserClaim>(new LSDbContext()));
 
             manager.PasswordValidator = new PasswordValidator
             {
