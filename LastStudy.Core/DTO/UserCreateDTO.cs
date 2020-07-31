@@ -16,6 +16,6 @@ namespace LastStudy.Core.DTO
         public bool IsInstituteAdmin { get; set; }
         public string UserName { get; set; }
         public string InstituteCode { get; set; }
-
+        
     }
 }

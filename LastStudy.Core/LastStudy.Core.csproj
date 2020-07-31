@@ -63,9 +63,13 @@
     <Compile Include="Entities\LSUserClaim.cs" />
     <Compile Include="Entities\LSUserLogin.cs" />
     <Compile Include="Entities\LSUserRole.cs" />
+    <Compile Include="Entities\UserInstitutes.cs" />
     <Compile Include="Helpers\DatabaseHelper.cs" />
+    <Compile Include="Interfaces\DependencyInjector\IInjector.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\Repositories\IInsituteRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IRepositoryWithId.cs" />
     <Compile Include="Interfaces\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

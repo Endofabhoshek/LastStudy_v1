@@ -1,11 +1,10 @@
-﻿using LastStudy.Core.DTO;
+﻿using DataAccessLayer.DbContexts;
+using LastStudy.Core.DTO;
 using LastStudy.Core.Entities;
+using LastStudy.Core.Helpers;
 using Microsoft.AspNet.Identity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System.Configuration;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -17,47 +16,61 @@ namespace LastStudy.Controllers
         [Route("create")]
         public async Task<IHttpActionResult> CreateUser(UserCreateDTO userCreate)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-            var user = new LSUser()
-            {
-                FullName = userCreate.FullName,
-                Email = userCreate.Email,
-                DateCreated = DateTime.Now,
-                UserName = userCreate.Email //need to change
-            };
+                var user = new LSUser()
+                {
+                    FullName = userCreate.FullName,
+                    Email = userCreate.Email,
+                    DateCreated = DateTime.Now,
+                    UserName = userCreate.Email, //need to change
+                    IsInstituteAdmin = true
+                };
 
-            IdentityResult addUserResult = await this.LSUserManager.CreateAsync(user, userCreate.Password);
-            if (userCreate.IsInstituteAdmin)
-            {
-                //do email verification
-                //and create database and then add the user as institute admin
+                //if (userCreate.IsInstituteAdmin)
+                //{
+                //need to check if the institute code already exists
+                //might add an email verification
+                INSDbContext cont = new INSDbContext(DatabaseHelper.GenerateConnectionString(ConfigurationManager.AppSettings["server"], ConfigurationManager.AppSettings["username"], ConfigurationManager.AppSettings["password"], userCreate.InstituteCode));
+                //}
+                //else
+                //{
+                //    //ask for institute code
+                //    //and then send for an approval
+                //}
+
+                IdentityResult addUserResult = await this.LSUserManager.CreateAsync(user, userCreate.Password);
+
+                if (addUserResult.Succeeded)
+                {
+                    //add the code to enter the details in the institute_connections
+                    return Ok("Success");
+                }
+                else
+                {
+                    return Ok("Failure");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                //ask for institute code
-                //and then send for an approval
-            }
-            if (addUserResult.Succeeded)
-            {
-                return Ok("Success");
-            }
-            else
-            {
-                return Ok("Failure");
+
+                throw ex;
             }
         }
 
         [Route("login")]
-        public  async Task<IHttpActionResult> Login(UserCreateDTO loginUser)
+        public async Task<IHttpActionResult> Login(UserCreateDTO loginUser)
         {
             var result = await this.LSUserManager.FindAsync(loginUser.UserName, loginUser.Password);
 
             if (result != null) // need to change to JWTand authenticate
             {
+                //assign a context ot the user
                 return Ok("Success");
             }
             else

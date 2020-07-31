@@ -3,7 +3,7 @@ namespace DataAccessLayer.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialMIgration : DbMigration
+    public partial class Initial_Migration : DbMigration
     {
         public override void Up()
         {
@@ -12,8 +12,8 @@ namespace DataAccessLayer.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        InstituteCode = c.String(nullable: false, unicode: false),
-                        DatabaseName = c.String(nullable: false, unicode: false),
+                        InstituteCode = c.String(nullable: false, maxLength: 255, storeType: "nvarchar"),
+                        DatabaseName = c.String(nullable: false, maxLength: 255, storeType: "nvarchar"),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -56,7 +56,6 @@ namespace DataAccessLayer.Migrations
                         FullName = c.String(unicode: false),
                         DateCreated = c.DateTime(nullable: false, precision: 0),
                         IsInstituteAdmin = c.Boolean(nullable: false),
-                        InstituteConnectionId = c.Int(nullable: false),
                         Email = c.String(maxLength: 256, storeType: "nvarchar"),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(unicode: false),
@@ -70,8 +69,6 @@ namespace DataAccessLayer.Migrations
                         UserName = c.String(nullable: false, maxLength: 256, storeType: "nvarchar"),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.institute_connections", t => t.InstituteConnectionId, cascadeDelete: true)
-                .Index(t => t.InstituteConnectionId)
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             
             CreateTable(
@@ -99,26 +96,43 @@ namespace DataAccessLayer.Migrations
                 .ForeignKey("dbo.lsusers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.user_institutes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        LSUserId = c.Int(nullable: false),
+                        InstituteConnectionId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.institute_connections", t => t.InstituteConnectionId, cascadeDelete: true)
+                .ForeignKey("dbo.lsusers", t => t.LSUserId, cascadeDelete: true)
+                .Index(t => t.LSUserId)
+                .Index(t => t.InstituteConnectionId);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.user_institutes", "LSUserId", "dbo.lsusers");
+            DropForeignKey("dbo.user_institutes", "InstituteConnectionId", "dbo.institute_connections");
             DropForeignKey("dbo.lsuser_roles", "RoleId", "dbo.lsroles");
             DropForeignKey("dbo.lsuser_roles", "LSUser_Id", "dbo.lsusers");
             DropForeignKey("dbo.lsuser_roles", "UserId", "dbo.lsusers");
             DropForeignKey("dbo.lsuser_logins", "UserId", "dbo.lsusers");
-            DropForeignKey("dbo.lsusers", "InstituteConnectionId", "dbo.institute_connections");
             DropForeignKey("dbo.lsuser_claims", "UserId", "dbo.lsusers");
             DropForeignKey("dbo.lsuser_roles", "LSRole_Id", "dbo.lsroles");
+            DropIndex("dbo.user_institutes", new[] { "InstituteConnectionId" });
+            DropIndex("dbo.user_institutes", new[] { "LSUserId" });
             DropIndex("dbo.lsuser_logins", new[] { "UserId" });
             DropIndex("dbo.lsuser_claims", new[] { "UserId" });
             DropIndex("dbo.lsusers", "UserNameIndex");
-            DropIndex("dbo.lsusers", new[] { "InstituteConnectionId" });
             DropIndex("dbo.lsuser_roles", new[] { "LSUser_Id" });
             DropIndex("dbo.lsuser_roles", new[] { "LSRole_Id" });
             DropIndex("dbo.lsuser_roles", new[] { "RoleId" });
             DropIndex("dbo.lsuser_roles", new[] { "UserId" });
             DropIndex("dbo.lsroles", "RoleNameIndex");
+            DropTable("dbo.user_institutes");
             DropTable("dbo.lsuser_logins");
             DropTable("dbo.lsuser_claims");
             DropTable("dbo.lsusers");
