@@ -1,6 +1,5 @@
 ﻿//using Microsoft.AspNet.Identity.EntityFramework;
 using LastStudy.Core.Entities;
-using LastStudy.Core.Helpers;
 using Microsoft.AspNet.Identity.EntityFramework;
 using MySql.Data.EntityFramework;
 using System;
@@ -38,13 +37,13 @@ namespace DataAccessLayer.DbContexts
             modelBuilder.Entity<InstituteConnection>().Property(x => x.DatabaseName).HasMaxLength(255).IsRequired();
 
             modelBuilder.Entity<LSUser>().ToTable("lsusers");
-            
+            modelBuilder.Entity<Teacher>().ToTable("teachers");
             modelBuilder.Entity<LSRole>().ToTable("lsroles");
             modelBuilder.Entity<LSUserRole>().HasKey(x => x.Id).ToTable("lsuser_roles");
             modelBuilder.Entity<LSUserLogin>().ToTable("lsuser_logins");
             modelBuilder.Entity<LSUserClaim>().ToTable("lsuser_claims");
 
-            modelBuilder.Entity<UserInstitutes>().ToTable("user_institutes");
+            modelBuilder.Entity<UserInstitute>().ToTable("user_institutes");
         }
     }
 
@@ -116,9 +115,9 @@ namespace DataAccessLayer.DbContexts
                     configuration.AutomaticMigrationsEnabled = true;
                     configuration.MigrationsAssembly = typeof(INSDbContext).Assembly;
                     configuration.TargetDatabase = new DbConnectionInfo(context.Database.Connection.ConnectionString, "MySql.Data.MySqlClient");
-                    
+
                     var migrator = new DbMigrator(configuration);
-                    
+
                     migrator.Update();
                     //var migrations = migrator.GetPendingMigrations();
                     //if (migrations.Any())
@@ -137,7 +136,7 @@ namespace DataAccessLayer.DbContexts
 
                 throw ex;
             }
-           
+
         }
     }
 }

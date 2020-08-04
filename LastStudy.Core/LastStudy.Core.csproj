@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\InstituteDTO.cs" />
     <Compile Include="DTO\UserCreateDTO.cs" />
     <Compile Include="Entities\Institute.cs" />
     <Compile Include="Entities\InstituteConnection.cs" />
@@ -63,13 +64,16 @@
     <Compile Include="Entities\LSUserClaim.cs" />
     <Compile Include="Entities\LSUserLogin.cs" />
     <Compile Include="Entities\LSUserRole.cs" />
-    <Compile Include="Entities\UserInstitutes.cs" />
-    <Compile Include="Helpers\DatabaseHelper.cs" />
-    <Compile Include="Interfaces\DependencyInjector\IInjector.cs" />
+    <Compile Include="Entities\Teacher.cs" />
+    <Compile Include="Entities\UserInstitute.cs" />
+    <Compile Include="Interfaces\BOObjects\IInstituteBO.cs" />
+    <Compile Include="Interfaces\DependencyInjector\IServiceLocator.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\Repositories\IInsituteRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IInstituteConnectionRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepositoryWithId.cs" />
+    <Compile Include="Interfaces\Repositories\IUserInstituteRepository.cs" />
     <Compile Include="Interfaces\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -77,6 +81,8 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

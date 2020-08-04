@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace LastStudy.Core.Interfaces.Repositories
 {
-    public interface IRepository<T> : IDisposable where T : class
+    public interface IRepository<T> : IDisposable where T : class, IEntity
     {
-        void Init();
-        IQueryable<T> ForJoin();
+        void Init(string connectionName);
+        IQueryable<T> Records();
         void Add(T entity);
     }
 }

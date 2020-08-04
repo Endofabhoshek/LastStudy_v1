@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Web.Http;
+using SimpleInjector.Integration.WebApi;
 
 namespace LastStudy.IoC
 {
@@ -15,15 +17,17 @@ namespace LastStudy.IoC
         {
             var container = new Container();
 
-            container.Options.DefaultLifestyle = new AsyncScopedLifestyle();
+            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
-            container.Register<IInjector, Injector>(Lifestyle.Scoped);
+            container.Register<IServiceLocator, ServiceLocator>(Lifestyle.Scoped);
 
             RegisterNamespaces(container, null,
                "DataAccessLayer.UnitOfWork",
-               "DataAccessLayer.Repositories");
+               "DataAccessLayer.Repositories",
+               "BusinessLogicLayer.Objects");
 
             // need to register further classes
+            container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
 
             container.Verify();
             return container;

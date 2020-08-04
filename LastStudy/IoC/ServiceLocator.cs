@@ -1,7 +1,7 @@
 ﻿using LastStudy.Core.Interfaces.DependencyInjector;
 
 using SimpleInjector;
-using SimpleInjector.Extensions.ExecutionContextScoping;
+//using SimpleInjector.Extensions.ExecutionContextScoping;
 using SimpleInjector.Lifestyles;
 using System;
 using System.Collections.Generic;
@@ -10,12 +10,12 @@ using System.Web;
 
 namespace LastStudy.IoC
 {
-    public class Injector : IInjector
+    public class ServiceLocator : IServiceLocator
     {
         private readonly Container _container;
         private Scope _scope;
 
-        public Injector(Container container)
+        public ServiceLocator(Container container)
         {
             this._container = container;
         }

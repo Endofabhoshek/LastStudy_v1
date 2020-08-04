@@ -25,7 +25,6 @@ namespace LastStudy.App_Start
 
         public static LSUserManager Create(IdentityFactoryOptions<LSUserManager> options, IOwinContext owincontext)
         {
-            //LSDbContext lsDbContext = context.Get<LSDbContext>();
             var manager = new LSUserManager(new UserStore<LSUser, LSRole, int, LSUserLogin, LSUserRole, LSUserClaim>(new LSDbContext()));
 
             manager.PasswordValidator = new PasswordValidator
@@ -35,7 +34,7 @@ namespace LastStudy.App_Start
                 RequireLowercase = true,
                 RequireUppercase = true,
                 RequireNonLetterOrDigit = true
-            };
+            };            
 
             return manager;
         }

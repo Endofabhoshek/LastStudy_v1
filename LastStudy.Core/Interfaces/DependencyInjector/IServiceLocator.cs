@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LastStudy.Core.Interfaces.DependencyInjector
 {
-    public interface IInjector
+    public interface IServiceLocator
     {
         T Resolve<T>() where T : class;
         void BeginScope();

@@ -1,7 +1,8 @@
 ﻿using DataAccessLayer.DbContexts;
 using LastStudy.Core.DTO;
 using LastStudy.Core.Entities;
-using LastStudy.Core.Helpers;
+using LastStudy.Core.Interfaces.DependencyInjector;
+using LastStudy.WebHelpers;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Configuration;
@@ -10,11 +11,19 @@ using System.Web.Http;
 
 namespace LastStudy.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/v1/accounts")]
-    public class AccountsController : BaseApiController
+    public class AccountsController : BaseAccountController
     {
+        private readonly IServiceLocator _injector;
+        public AccountsController(IServiceLocator injector) : base(injector)
+        {
+            this._injector = injector;
+        }
+
+        [AllowAnonymous]
         [Route("create")]
-        public async Task<IHttpActionResult> CreateUser(UserCreateDTO userCreate)
+        public async Task<IHttpActionResult> PostUser(UserCreateDTO userCreate)
         {
             try
             {
@@ -28,15 +37,14 @@ namespace LastStudy.Controllers
                     FullName = userCreate.FullName,
                     Email = userCreate.Email,
                     DateCreated = DateTime.Now,
-                    UserName = userCreate.Email, //need to change
-                    IsInstituteAdmin = true
+                    UserName = userCreate.Email
                 };
 
                 //if (userCreate.IsInstituteAdmin)
                 //{
                 //need to check if the institute code already exists
                 //might add an email verification
-                INSDbContext cont = new INSDbContext(DatabaseHelper.GenerateConnectionString(ConfigurationManager.AppSettings["server"], ConfigurationManager.AppSettings["username"], ConfigurationManager.AppSettings["password"], userCreate.InstituteCode));
+                //INSDbContext cont = new INSDbContext(DatabaseHelper.GenerateConnectionString(ConfigurationManager.AppSettings["server"], ConfigurationManager.AppSettings["username"], ConfigurationManager.AppSettings["password"], userCreate.InstituteCode));
                 //}
                 //else
                 //{
@@ -48,12 +56,12 @@ namespace LastStudy.Controllers
 
                 if (addUserResult.Succeeded)
                 {
-                    //add the code to enter the details in the institute_connections
-                    return Ok("Success");
+                    return Ok();
                 }
                 else
                 {
-                    return Ok("Failure");
+                    //Might use a common method in the BaseAPIController
+                    return BadRequest("An Error Occured");
                 }
             }
             catch (Exception ex)
@@ -63,19 +71,21 @@ namespace LastStudy.Controllers
             }
         }
 
+        [AllowAnonymous]
         [Route("login")]
         public async Task<IHttpActionResult> Login(UserCreateDTO loginUser)
         {
             var result = await this.LSUserManager.FindAsync(loginUser.UserName, loginUser.Password);
-
+            
             if (result != null) // need to change to JWTand authenticate
             {
                 //assign a context ot the user
-                return Ok("Success");
+                var jwtToken = JWTManager.GetToken(loginUser.UserName, result.Id);
+                return Ok(jwtToken);
             }
             else
             {
-                return Ok("Failure");
+                return BadRequest("Invaild Username or password");
             }
         }
     }

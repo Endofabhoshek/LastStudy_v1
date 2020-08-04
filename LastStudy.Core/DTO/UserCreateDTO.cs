@@ -9,10 +9,15 @@ namespace LastStudy.Core.DTO
 {
     public class UserCreateDTO
     {
-        public string Email { get; set; }
+        [Required]
         public string FullName { get; set; }
+        [Required]
+        public string Email { get; set; }
         [DataType(DataType.Password)]
+        [Required]
         public string Password { get; set; }
+
+        //Need to check this
         public bool IsInstituteAdmin { get; set; }
         public string UserName { get; set; }
         public string InstituteCode { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LastStudy.Core.Entities
 {
-    public class UserInstitutes : IEntity
+    public class UserInstitute : IEntity
     {
         public int Id { get ; set ; }
         public LSUser LSUser { get; set; }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using LastStudy.Core.Interfaces;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LastStudy.Core.Entities
 {
-    public class LSUserClaim : IdentityUserClaim<int>
+    public class LSUserClaim : IdentityUserClaim<int>, IEntity
     {
     }
 }
