@@ -80,6 +80,7 @@ namespace LastStudy.Controllers
             if (result != null) // need to change to JWTand authenticate
             {
                 //assign a context ot the user
+                //need to add code to get the default institute code
                 var jwtToken = JWTManager.GetToken(loginUser.UserName, result.Id);
                 return Ok(jwtToken);
             }

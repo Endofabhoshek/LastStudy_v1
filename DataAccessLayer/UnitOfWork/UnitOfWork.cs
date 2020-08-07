@@ -27,9 +27,9 @@ namespace DataAccessLayer.UnitOfWork
             this._serviceLocator = serviceLocator;
         }
 
-        public IInsituteRepository Insitutes
+        public IInstituteRepository Insitutes
         {
-            get { return GetRepository<IInsituteRepository>(); }
+            get { return GetRepository<IInstituteRepository>(); }
         }
 
         public IInstituteConnectionRepository InsituteConnections
@@ -133,32 +133,37 @@ namespace DataAccessLayer.UnitOfWork
             }
         }
 
-        public int Save()
+        public int SaveLS()
         {
-            if (string.IsNullOrEmpty(this._connectionName))
+
+            InitLSDb();
+            try
             {
-                InitLSDb();
-                try
-                {
-                    return _lscontext.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                return _lscontext.SaveChanges();
             }
-            else
+            catch (Exception ex)
             {
+                throw ex;
+            }
+        }
+
+        public int SaveINS()
+        {
+            
+            try
+            {
+                if (this._connectionName == null)
+                {
+                    throw new Exception("The connection string for INS context is null, initialize the connection before saving");
+                }
                 InitINS(this._connectionName);
-                try
-                {
-                    return _inscontext.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                return _inscontext.SaveChanges();
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

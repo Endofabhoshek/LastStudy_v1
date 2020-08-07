@@ -13,6 +13,7 @@ using System.Configuration;
 using LastStudy.Core.Interfaces.DependencyInjector;
 using LastStudy.Core.Interfaces.UnitOfWork;
 using LastStudy.WebHelpers;
+using LastStudy.Core.Interfaces.BOObjects;
 
 namespace LastStudy.Controllers
 {
@@ -56,6 +57,7 @@ namespace LastStudy.Controllers
         public IHttpActionResult PostInstitute(InstituteDTO institute)
         {
             //NEED TO make this async and send the email upon confirmation
+            var instituteBO = _serviceLocator.Resolve<IInstituteBO>();
             try
             {
 
@@ -67,18 +69,15 @@ namespace LastStudy.Controllers
                 INSDbContext context = new INSDbContext(connectionString);
                 if (context != null)
                 {
-                    
-                    using (var unitOfWork = _serviceLocator.Resolve<IUnitOfWork>())
+                    instituteBO.InitINS(connectionString);
+                    if (instituteBO.AddInstitute(institute) > 0)
                     {
-                        InstituteConnection insconnection = new InstituteConnection() { DatabaseName = institute.InstituteCode, InstituteCode = institute.InstituteCode };
-                        unitOfWork.InsituteConnections.Add(insconnection);
-                        unitOfWork.Save();
-
-                        UserInstitute userInstitute = new UserInstitute() { LSUserId = institute.UserId, InstituteConnectionId = insconnection.Id };
-                        unitOfWork.UserInstitutes.Add(userInstitute);
-                        unitOfWork.Save();
+                        return Ok("Institute Created Successfully");
                     }
-                    return Ok("Institute Created Successfully");
+                    else
+                    {
+                        return BadRequest("Institute Creation Failed");
+                    }
                 }
                 else
                 {

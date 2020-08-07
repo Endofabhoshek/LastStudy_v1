@@ -106,13 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbContexts\LSDbContext.cs" />
-    <Compile Include="Migrations\202007251348240_Initial_Migration.cs" />
-    <Compile Include="Migrations\202007251348240_Initial_Migration.Designer.cs">
-      <DependentUpon>202007251348240_Initial_Migration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202008011900454_Teachers.cs" />
-    <Compile Include="Migrations\202008011900454_Teachers.Designer.cs">
-      <DependentUpon>202008011900454_Teachers.cs</DependentUpon>
+    <Compile Include="Migrations\202008051934047_Initial_Migration.cs" />
+    <Compile Include="Migrations\202008051934047_Initial_Migration.Designer.cs">
+      <DependentUpon>202008051934047_Initial_Migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -134,13 +130,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202007251348240_Initial_Migration.resx">
-      <DependentUpon>202007251348240_Initial_Migration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202008011900454_Teachers.resx">
-      <DependentUpon>202008011900454_Teachers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202008051934047_Initial_Migration.resx">
+      <DependentUpon>202008051934047_Initial_Migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

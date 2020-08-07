@@ -342,6 +342,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
+      <Project>{04abe8ff-d9b6-4da8-a930-43f138222db4}</Project>
+      <Name>BusinessLogicLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
       <Project>{9E418753-E497-4F21-A666-D6B8CB194859}</Project>
       <Name>DataAccessLayer</Name>

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class InstituteRepository : RepositoryWithId<Institute>, IInsituteRepository
+    public class InstituteRepository : RepositoryWithId<Institute>, IInstituteRepository
     {
         public InstituteRepository(IServiceLocator serviceLocator) : base(serviceLocator)
         {

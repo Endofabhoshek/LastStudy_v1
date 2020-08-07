@@ -69,7 +69,7 @@
     <Compile Include="Interfaces\BOObjects\IInstituteBO.cs" />
     <Compile Include="Interfaces\DependencyInjector\IServiceLocator.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
-    <Compile Include="Interfaces\Repositories\IInsituteRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IInstituteRepository.cs" />
     <Compile Include="Interfaces\Repositories\IInstituteConnectionRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepositoryWithId.cs" />

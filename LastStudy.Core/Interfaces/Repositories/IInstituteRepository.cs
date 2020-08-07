@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LastStudy.Core.Interfaces.Repositories
 {
-    public interface IInsituteRepository : IRepositoryWithId<Institute>
+    public interface IInstituteRepository : IRepositoryWithId<Institute>
     {
 
     }

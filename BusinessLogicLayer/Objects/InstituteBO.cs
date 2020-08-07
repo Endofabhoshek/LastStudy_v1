@@ -14,9 +14,15 @@ namespace BusinessLogicLayer.Objects
     public class InstituteBO : IInstituteBO
     {
         private readonly IServiceLocator _serviceLocator;
+        private string _insConnection;
         public InstituteBO(IServiceLocator serviceLocator)
         {
             this._serviceLocator = serviceLocator;
+        }
+
+        public void InitINS(string connectionName)
+        {
+            this._insConnection = connectionName;
         }
 
         public int AddInstitute(InstituteDTO instituteDTO)
@@ -27,20 +33,22 @@ namespace BusinessLogicLayer.Objects
                 {
                     InstituteConnection insconnection = new InstituteConnection() { DatabaseName = instituteDTO.InstituteCode, InstituteCode = instituteDTO.InstituteCode };
                     unitOfWork.InsituteConnections.Add(insconnection);
-                    unitOfWork.Save();
+                    unitOfWork.SaveLS();
 
                     UserInstitute userInstitute = new UserInstitute() { LSUserId = instituteDTO.UserId, InstituteConnectionId = insconnection.Id };
                     unitOfWork.UserInstitutes.Add(userInstitute);
 
-                    return unitOfWork.Save();
-                    //Institute institute = new Institute()
-                    //{
-                    //    Name = instituteDTO.Name,
-                    //    Email = instituteDTO.Email,
-                    //    Address = instituteDTO.Address,
-                    //    InstituteCode = instituteDTO.InstituteCode
-                    //};
-                    
+                    unitOfWork.InitINS(this._insConnection);
+                    Institute institute = new Institute()
+                    {
+                        Name = instituteDTO.Name,
+                        Email = instituteDTO.Email,
+                        Address = instituteDTO.Address,
+                        InstituteCode = instituteDTO.InstituteCode
+                    };
+                    unitOfWork.Insitutes.Add(institute);
+                    unitOfWork.SaveLS();
+                    return unitOfWork.SaveINS();
                 }
             }
             catch (Exception ex)

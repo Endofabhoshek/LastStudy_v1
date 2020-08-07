@@ -11,7 +11,7 @@ namespace LastStudy.WebHelpers
 {
     public static class JWTManager
     {
-        public static object GetToken(string username, int userID)
+        public static object GetToken(string username, int userID, string inscode = "")
         {
             string key = "my_secret_key_12345"; //Secret key which will be used later during validation    
             var issuer = "http://localhost";  //normally this will be your site URL    
@@ -25,6 +25,7 @@ namespace LastStudy.WebHelpers
             permClaims.Add(new Claim("valid", "1"));
             permClaims.Add(new Claim("username", username));
             permClaims.Add(new Claim("userId", Convert.ToString(userID)));
+            permClaims.Add(new Claim("inscode", Convert.ToString(inscode)));
 
             //Create Security Token object by giving required parameters    
             var token = new JwtSecurityToken(issuer, //Issure    

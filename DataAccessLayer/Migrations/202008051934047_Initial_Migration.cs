@@ -110,10 +110,22 @@ namespace DataAccessLayer.Migrations
                 .Index(t => t.LSUserId)
                 .Index(t => t.InstituteConnectionId);
             
+            CreateTable(
+                "dbo.teachers",
+                c => new
+                    {
+                        Id = c.Int(nullable: false),
+                        Qualification = c.String(unicode: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.lsusers", t => t.Id)
+                .Index(t => t.Id);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.teachers", "Id", "dbo.lsusers");
             DropForeignKey("dbo.user_institutes", "LSUserId", "dbo.lsusers");
             DropForeignKey("dbo.user_institutes", "InstituteConnectionId", "dbo.institute_connections");
             DropForeignKey("dbo.lsuser_roles", "RoleId", "dbo.lsroles");
@@ -122,6 +134,7 @@ namespace DataAccessLayer.Migrations
             DropForeignKey("dbo.lsuser_logins", "UserId", "dbo.lsusers");
             DropForeignKey("dbo.lsuser_claims", "UserId", "dbo.lsusers");
             DropForeignKey("dbo.lsuser_roles", "LSRole_Id", "dbo.lsroles");
+            DropIndex("dbo.teachers", new[] { "Id" });
             DropIndex("dbo.user_institutes", new[] { "InstituteConnectionId" });
             DropIndex("dbo.user_institutes", new[] { "LSUserId" });
             DropIndex("dbo.lsuser_logins", new[] { "UserId" });
@@ -132,6 +145,7 @@ namespace DataAccessLayer.Migrations
             DropIndex("dbo.lsuser_roles", new[] { "RoleId" });
             DropIndex("dbo.lsuser_roles", new[] { "UserId" });
             DropIndex("dbo.lsroles", "RoleNameIndex");
+            DropTable("dbo.teachers");
             DropTable("dbo.user_institutes");
             DropTable("dbo.lsuser_logins");
             DropTable("dbo.lsuser_claims");

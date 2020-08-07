@@ -14,12 +14,13 @@ namespace LastStudy.Core.Interfaces.UnitOfWork
 
         void InitLSDb();
 
-        IInsituteRepository Insitutes { get; }
+        IInstituteRepository Insitutes { get; }
         IInstituteConnectionRepository InsituteConnections { get; }
         IUserInstituteRepository UserInstitutes { get; }
         DbSet<TEntity> Set<TEntity>(string connectionName) where TEntity : class;
 
         DbSet<TModel> Collection<TModel>() where TModel : class;
-        int Save();
+        int SaveLS();
+        int SaveINS();
     }
 }
