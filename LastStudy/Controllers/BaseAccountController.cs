@@ -14,6 +14,7 @@ namespace LastStudy.Controllers
     public class BaseAccountController : BaseAPIController
     {
         private LSUserManager _LSUserManager = null;
+        private LSRoleManager _LSRoleManager = null;
         public BaseAccountController(IServiceLocator injector) : base(injector)
         {
 
@@ -23,6 +24,14 @@ namespace LastStudy.Controllers
             get
             {
                 return _LSUserManager ?? Request.GetOwinContext().GetUserManager<LSUserManager>();
+            }
+        }
+
+        protected LSRoleManager LSRoleManager
+        {
+            get
+            {
+                return _LSRoleManager ?? Request.GetOwinContext().GetUserManager<LSRoleManager>();
             }
         }
     }

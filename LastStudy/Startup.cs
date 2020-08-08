@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Configuration;
@@ -26,6 +27,7 @@ namespace LastStudy
             Container container = LSRegisterInjector.CreateContainer();
             app.CreatePerOwinContext<LSDbContext>(LSDbContext.Create);
             app.CreatePerOwinContext<LSUserManager>(LSUserManager.Create);
+            app.CreatePerOwinContext<LSRoleManager>(LSRoleManager.Create);
 
             //app.UseCookieAuthentication(new CookieAuthenticationOptions
             //{
@@ -41,8 +43,9 @@ namespace LastStudy
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = "http://localhost",
-                    ValidAudience = "http://localhost",
+                    ValidIssuer = ConfigurationManager.AppSettings["jwtSecret"],
+                    ValidAudience = ConfigurationManager.AppSettings["issuer"],
+                    
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my_secret_key_12345"))
                 }
             }); ;

@@ -34,9 +34,24 @@ namespace LastStudy.App_Start
                 RequireLowercase = true,
                 RequireUppercase = true,
                 RequireNonLetterOrDigit = true
-            };            
+            };
 
             return manager;
+        }
+    }
+
+    public class LSRoleManager : RoleManager<LSRole, int>
+    {
+        public LSRoleManager(IRoleStore<LSRole, int> store) : base(store)
+        {
+
+        }
+
+        public static LSRoleManager Create(IdentityFactoryOptions<LSRoleManager> options, IOwinContext owincontext)
+        {
+            var roleManager = new LSRoleManager(new RoleStore<LSRole, int, LSUserRole>(new LSDbContext()));
+
+            return roleManager;
         }
     }
 }
