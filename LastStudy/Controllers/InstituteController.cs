@@ -14,6 +14,9 @@ using LastStudy.Core.Interfaces.DependencyInjector;
 using LastStudy.Core.Interfaces.UnitOfWork;
 using LastStudy.WebHelpers;
 using LastStudy.Core.Interfaces.BOObjects;
+using Microsoft.AspNet.Identity;
+using LastStudy.App_Start;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace LastStudy.Controllers
 {
@@ -21,6 +24,13 @@ namespace LastStudy.Controllers
     [RoutePrefix("api/v1/institute")]
     public class InstituteController : BaseAPIController
     {
+        protected LSUserManager LSUserManager
+        {
+            get
+            {
+                return LSUserManager ?? Request.GetOwinContext().GetUserManager<LSUserManager>();
+            }
+        }
         private readonly IServiceLocator _serviceLocator;
         public InstituteController(IServiceLocator serviceLocator) : base(serviceLocator)
         {
@@ -46,10 +56,53 @@ namespace LastStudy.Controllers
         //}
 
         [Route("adduser")]
-        public async Task<IHttpActionResult> AddUser()
+        public async Task<IHttpActionResult> AddUser(UserCreateDTO userCreateDTO)
         {
-            //authenticate the role with the database
-            //send the email with database context
+            var instituteBO = _serviceLocator.Resolve<IInstituteBO>();
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Mandatory Fields not filled.");
+                }
+                string connectionString = DatabaseHelper.GenerateConnectionString(userCreateDTO.InstituteCode);
+                instituteBO.InitINS(connectionString);
+                if (userCreateDTO.IsStudent)
+                {
+                    var user = new Student()
+                    {
+                        FullName = userCreateDTO.FullName,
+                        Email = userCreateDTO.Email,
+                        DateCreated = DateTime.Now,
+                        UserName = userCreateDTO.Email
+                    };
+                    IdentityResult addUserResult = await this.LSUserManager.CreateAsync(user, userCreateDTO.Password);
+                }
+                //var user = new LSUser()
+                //{
+                //    FullName = userCreateDTO.FullName,
+                //    Email = userCreateDTO.Email,
+                //    DateCreated = DateTime.Now,
+                //    UserName = userCreateDTO.Email
+                //};
+
+                
+                //if (addUserResult.Succeeded)
+                //{
+                //    if (instituteBO.AddUser(userCreateDTO, user.Id) > 0)
+                //    {
+                //        return Ok("User Successfully Created");
+                //    }
+                //    else
+                //    {
+                //        return BadRequest("User creation failed / Already exists");
+                //    }
+                //}
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
             return Ok("");
         }
 
@@ -76,7 +129,7 @@ namespace LastStudy.Controllers
                     }
                     else
                     {
-                        return BadRequest("Institute Creation Failed");
+                        return BadRequest("Institute Creation Failed / Already exists");
                     }
                 }
                 else
@@ -86,10 +139,9 @@ namespace LastStudy.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest();
-                throw;
+                return BadRequest(ex.Message);
             }
-            
+
         }
     }
 }

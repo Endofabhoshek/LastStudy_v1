@@ -11,5 +11,6 @@ namespace LastStudy.Core.Interfaces.BOObjects
     {
         int AddInstitute(InstituteDTO instituteDTO);
         void InitINS(string connectionName);
+        int AddUser(UserCreateDTO userCreateDTO, int userID);
     }
 }

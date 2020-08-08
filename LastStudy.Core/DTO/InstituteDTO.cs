@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace LastStudy.Core.DTO
 {
-    public class InstituteDTO
+    public class InstituteDTO : BaseDTO
     {
         [Required]
-        public string Name { get; set; }
-        [Required]
-        public string InstituteCode { get; set; }
+        public string Name { get; set; }        
         public string Address { get; set; }
         [Required]
         public string Email { get; set; }

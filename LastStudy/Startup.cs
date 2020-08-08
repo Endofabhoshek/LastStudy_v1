@@ -38,14 +38,14 @@ namespace LastStudy
                 AuthenticationMode = Microsoft.Owin.Security.AuthenticationMode.Active,
                 TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
                 {
-                    ValidateIssuer =true,
-                    ValidateAudience =true,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = "http://localhost",
                     ValidAudience = "http://localhost",
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my_secret_key_12345"))
-        }
-            });;
+                }
+            }); ;
 
             HttpConfiguration webApiConfiguration = new HttpConfiguration();
             webApiConfiguration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);

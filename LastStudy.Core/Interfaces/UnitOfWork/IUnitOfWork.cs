@@ -18,6 +18,8 @@ namespace LastStudy.Core.Interfaces.UnitOfWork
         IInstituteConnectionRepository InsituteConnections { get; }
         IUserInstituteRepository UserInstitutes { get; }
         DbSet<TEntity> Set<TEntity>(string connectionName) where TEntity : class;
+        ITeacherRepository Teachers { get; }
+        IStudentRepository Students { get; }
 
         DbSet<TModel> Collection<TModel>() where TModel : class;
         int SaveLS();

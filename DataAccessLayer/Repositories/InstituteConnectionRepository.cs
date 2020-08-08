@@ -14,5 +14,17 @@ namespace DataAccessLayer.Repositories
         public InstituteConnectionRepository(IServiceLocator serviceLocator) : base(serviceLocator)
         {
         }
+
+        public bool FindByINSCode(string instituteCode)
+        {
+            if (this._records.Where(x => x.InstituteCode == instituteCode).Count() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

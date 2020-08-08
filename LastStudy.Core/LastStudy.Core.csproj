@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\BaseDTO.cs" />
     <Compile Include="DTO\InstituteDTO.cs" />
     <Compile Include="DTO\UserCreateDTO.cs" />
     <Compile Include="Entities\Institute.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Entities\LSUserClaim.cs" />
     <Compile Include="Entities\LSUserLogin.cs" />
     <Compile Include="Entities\LSUserRole.cs" />
+    <Compile Include="Entities\Student.cs" />
     <Compile Include="Entities\Teacher.cs" />
     <Compile Include="Entities\UserInstitute.cs" />
     <Compile Include="Interfaces\BOObjects\IInstituteBO.cs" />
@@ -73,6 +75,8 @@
     <Compile Include="Interfaces\Repositories\IInstituteConnectionRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepositoryWithId.cs" />
+    <Compile Include="Interfaces\Repositories\IStudentRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ITeacherRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUserInstituteRepository.cs" />
     <Compile Include="Interfaces\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

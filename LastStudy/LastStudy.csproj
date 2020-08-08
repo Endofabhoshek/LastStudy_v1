@@ -316,6 +316,7 @@
     <Compile Include="Controllers\BaseAccountController.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\InstituteController.cs" />
+    <Compile Include="Filter\JwtAuthenticationAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

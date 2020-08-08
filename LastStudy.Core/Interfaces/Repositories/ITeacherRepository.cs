@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace LastStudy.Core.Interfaces.Repositories
 {
-    public interface IInstituteConnectionRepository : IRepositoryWithId<InstituteConnection>
+    public interface ITeacherRepository: IRepositoryWithId<Teacher>
     {
-        bool FindByINSCode(string instituteCode);
     }
 }

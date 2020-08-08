@@ -31,31 +31,62 @@ namespace BusinessLogicLayer.Objects
             {
                 using (var unitOfWork = _serviceLocator.Resolve<IUnitOfWork>())
                 {
-                    InstituteConnection insconnection = new InstituteConnection() { DatabaseName = instituteDTO.InstituteCode, InstituteCode = instituteDTO.InstituteCode };
-                    unitOfWork.InsituteConnections.Add(insconnection);
-                    unitOfWork.SaveLS();
-
-                    UserInstitute userInstitute = new UserInstitute() { LSUserId = instituteDTO.UserId, InstituteConnectionId = insconnection.Id };
-                    unitOfWork.UserInstitutes.Add(userInstitute);
-
-                    unitOfWork.InitINS(this._insConnection);
-                    Institute institute = new Institute()
+                    if (!unitOfWork.InsituteConnections.FindByINSCode(instituteDTO.InstituteCode))
                     {
-                        Name = instituteDTO.Name,
-                        Email = instituteDTO.Email,
-                        Address = instituteDTO.Address,
-                        InstituteCode = instituteDTO.InstituteCode
-                    };
-                    unitOfWork.Insitutes.Add(institute);
-                    unitOfWork.SaveLS();
-                    return unitOfWork.SaveINS();
+                        InstituteConnection insconnection = new InstituteConnection() { DatabaseName = instituteDTO.InstituteCode, InstituteCode = instituteDTO.InstituteCode };
+                        unitOfWork.InsituteConnections.Add(insconnection);
+                        unitOfWork.SaveLS();
+
+                        UserInstitute userInstitute = new UserInstitute() { LSUserId = instituteDTO.UserId, InstituteConnectionId = insconnection.Id };
+                        unitOfWork.UserInstitutes.Add(userInstitute);
+
+                        unitOfWork.InitINS(this._insConnection);
+                        Institute institute = new Institute()
+                        {
+                            Name = instituteDTO.Name,
+                            Email = instituteDTO.Email,
+                            Address = instituteDTO.Address,
+                            InstituteCode = instituteDTO.InstituteCode
+                        };
+                        unitOfWork.Insitutes.Add(institute);
+                        unitOfWork.SaveLS();
+                        return unitOfWork.SaveINS();
+                    }
+                    else
+                    {
+                        return -1;
+                    }
                 }
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
-            
+
+        }
+
+        public int AddUser(UserCreateDTO userCreateDTO, int userID)
+        {
+            //try
+            //{
+            //    using (var unitOfWork = _serviceLocator.Resolve<IUnitOfWork>())
+            //    {
+            //        if (userCreateDTO.IsStudent)
+            //        {
+            //            unitOfWork.Students.Add(new Student() { })
+            //        }
+            //        else if (userCreateDTO.IsTeacher)
+            //        {
+
+            //        }
+            //    }
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
+            return 0;
         }
     }
 }

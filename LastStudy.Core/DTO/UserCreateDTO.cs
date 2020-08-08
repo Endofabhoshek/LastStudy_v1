@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LastStudy.Core.DTO
 {
-    public class UserCreateDTO
+    public class UserCreateDTO : BaseDTO
     {
         [Required]
         public string FullName { get; set; }
@@ -16,11 +16,10 @@ namespace LastStudy.Core.DTO
         [DataType(DataType.Password)]
         [Required]
         public string Password { get; set; }
-
         //Need to check this
         public bool IsInstituteAdmin { get; set; }
         public string UserName { get; set; }
-        public string InstituteCode { get; set; }
-        
+        public bool IsTeacher { get; set; }
+        public bool IsStudent { get; set; }
     }
 }

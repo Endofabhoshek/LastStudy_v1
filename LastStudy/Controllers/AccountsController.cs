@@ -81,7 +81,7 @@ namespace LastStudy.Controllers
             {
                 //assign a context ot the user
                 //need to add code to get the default institute code
-                var jwtToken = JWTManager.GetToken(loginUser.UserName, result.Id);
+                var jwtToken = JWTManager.GetToken(loginUser.UserName);
                 return Ok(jwtToken);
             }
             else

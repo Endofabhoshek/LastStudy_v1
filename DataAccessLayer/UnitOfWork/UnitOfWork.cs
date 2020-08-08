@@ -41,6 +41,17 @@ namespace DataAccessLayer.UnitOfWork
         {
             get { return GetRepository<IUserInstituteRepository>(); }
         }
+
+        public ITeacherRepository Teachers
+        {
+            get { return GetRepository<ITeacherRepository>(); }
+        }
+
+        public IStudentRepository Students
+        {
+            get { return GetRepository<IStudentRepository>(); }
+        }
+
         private T GetRepository<T>() where T : class
         {
             if (string.IsNullOrEmpty(this._connectionName))
