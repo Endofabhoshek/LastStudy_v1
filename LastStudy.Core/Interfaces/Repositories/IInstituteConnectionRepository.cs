@@ -10,5 +10,6 @@ namespace LastStudy.Core.Interfaces.Repositories
     public interface IInstituteConnectionRepository : IRepositoryWithId<InstituteConnection>
     {
         bool FindByINSCode(string instituteCode);
+        InstituteConnection GetByINSCode(string instituteCode);
     }
 }

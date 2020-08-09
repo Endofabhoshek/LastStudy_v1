@@ -17,20 +17,14 @@ using LastStudy.Core.Interfaces.BOObjects;
 using Microsoft.AspNet.Identity;
 using LastStudy.App_Start;
 using Microsoft.AspNet.Identity.Owin;
+using System.Diagnostics;
 
 namespace LastStudy.Controllers
 {
     [Authorize]
     [RoutePrefix("api/v1/institute")]
     public class InstituteController : BaseAPIController
-    {
-        protected LSUserManager LSUserManager
-        {
-            get
-            {
-                return LSUserManager ?? Request.GetOwinContext().GetUserManager<LSUserManager>();
-            }
-        }
+    {    
         private readonly IServiceLocator _serviceLocator;
         public InstituteController(IServiceLocator serviceLocator) : base(serviceLocator)
         {
@@ -54,57 +48,6 @@ namespace LastStudy.Controllers
         //        return Ok("Failure");
         //    }
         //}
-
-        [Route("adduser")]
-        public async Task<IHttpActionResult> AddUser(UserCreateDTO userCreateDTO)
-        {
-            var instituteBO = _serviceLocator.Resolve<IInstituteBO>();
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest("Mandatory Fields not filled.");
-                }
-                string connectionString = DatabaseHelper.GenerateConnectionString(userCreateDTO.InstituteCode);
-                instituteBO.InitINS(connectionString);
-                if (userCreateDTO.IsStudent)
-                {
-                    var user = new Student()
-                    {
-                        FullName = userCreateDTO.FullName,
-                        Email = userCreateDTO.Email,
-                        DateCreated = DateTime.Now,
-                        UserName = userCreateDTO.Email
-                    };
-                    IdentityResult addUserResult = await this.LSUserManager.CreateAsync(user, userCreateDTO.Password);
-                }
-                //var user = new LSUser()
-                //{
-                //    FullName = userCreateDTO.FullName,
-                //    Email = userCreateDTO.Email,
-                //    DateCreated = DateTime.Now,
-                //    UserName = userCreateDTO.Email
-                //};
-
-                
-                //if (addUserResult.Succeeded)
-                //{
-                //    if (instituteBO.AddUser(userCreateDTO, user.Id) > 0)
-                //    {
-                //        return Ok("User Successfully Created");
-                //    }
-                //    else
-                //    {
-                //        return BadRequest("User creation failed / Already exists");
-                //    }
-                //}
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok("");
-        }
 
         [Route("create")]
         public IHttpActionResult PostInstitute(InstituteDTO institute)
@@ -143,5 +86,90 @@ namespace LastStudy.Controllers
             }
 
         }
+
+        [Route("edit")]
+        public IHttpActionResult PostEditInstitute(InstituteDTO institute)
+        {
+            //NEED TO make this async and send the email upon confirmation
+            var instituteBO = _serviceLocator.Resolve<IInstituteBO>(); //need a common method for this
+            try
+            {
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Mandatory Fields not filled.");
+                }
+                string connectionString = DatabaseHelper.GenerateConnectionString(institute.InstituteCode); //need a common method for this
+                instituteBO.InitINS(connectionString);
+                if (instituteBO.EditInstitute(institute) > 0)
+                {
+                    return Ok("Institute Edited Successfully");
+                }
+                else
+                {
+                    return BadRequest("Institute Edit Failed ");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("addcourse")]
+        public IHttpActionResult PostCreateCourse(CourseDTO courseDTO)
+        {
+            try
+            {
+                var instituteBO = _serviceLocator.Resolve<IInstituteBO>();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Mandatory Fields not filled.");
+                }
+                string connectionString = DatabaseHelper.GenerateConnectionString(courseDTO.InstituteCode); //need a common method for this
+                instituteBO.InitINS(connectionString);
+                if (instituteBO.AddCourse(courseDTO) > 0)
+                {
+                    return Ok("Course Created Successfully");
+                }
+                else
+                {
+                    return BadRequest("Course creation failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("addsubject")]
+        public IHttpActionResult PostCreateSubject(SubjectDTO subjectDTO)
+        {
+            try
+            {
+                var instituteBO = _serviceLocator.Resolve<IInstituteBO>();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Mandatory Fields not filled.");
+                }
+                string connectionString = DatabaseHelper.GenerateConnectionString(subjectDTO.InstituteCode); //need a common method for this
+                instituteBO.InitINS(connectionString);
+                if (instituteBO.AddSubject(subjectDTO) > 0)
+                {
+                    return Ok("Subject Created Successfully");
+                }
+                else
+                {
+                    return BadRequest("Subject creation failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
+

@@ -67,7 +67,6 @@ namespace DataAccessLayer.Migrations
                         LockoutEnabled = c.Boolean(nullable: false),
                         AccessFailedCount = c.Int(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 256, storeType: "nvarchar"),
-                        Discriminator = c.String(maxLength: 128, storeType: "nvarchar"),
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
@@ -122,10 +121,21 @@ namespace DataAccessLayer.Migrations
                 .ForeignKey("dbo.lsusers", t => t.Id)
                 .Index(t => t.Id);
             
+            CreateTable(
+                "dbo.students",
+                c => new
+                    {
+                        Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.lsusers", t => t.Id)
+                .Index(t => t.Id);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.students", "Id", "dbo.lsusers");
             DropForeignKey("dbo.teachers", "Id", "dbo.lsusers");
             DropForeignKey("dbo.user_institutes", "LSUserId", "dbo.lsusers");
             DropForeignKey("dbo.user_institutes", "InstituteConnectionId", "dbo.institute_connections");
@@ -135,6 +145,7 @@ namespace DataAccessLayer.Migrations
             DropForeignKey("dbo.lsuser_logins", "UserId", "dbo.lsusers");
             DropForeignKey("dbo.lsuser_claims", "UserId", "dbo.lsusers");
             DropForeignKey("dbo.lsuser_roles", "LSRole_Id", "dbo.lsroles");
+            DropIndex("dbo.students", new[] { "Id" });
             DropIndex("dbo.teachers", new[] { "Id" });
             DropIndex("dbo.user_institutes", new[] { "InstituteConnectionId" });
             DropIndex("dbo.user_institutes", new[] { "LSUserId" });
@@ -146,6 +157,7 @@ namespace DataAccessLayer.Migrations
             DropIndex("dbo.lsuser_roles", new[] { "RoleId" });
             DropIndex("dbo.lsuser_roles", new[] { "UserId" });
             DropIndex("dbo.lsroles", "RoleNameIndex");
+            DropTable("dbo.students");
             DropTable("dbo.teachers");
             DropTable("dbo.user_institutes");
             DropTable("dbo.lsuser_logins");

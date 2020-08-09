@@ -14,13 +14,14 @@ namespace LastStudy.WebHelpers
     {
         private static readonly string Secret = ConfigurationManager.AppSettings["jwtSecret"];
         private static readonly string Issuer = ConfigurationManager.AppSettings["issuer"];
-        public static object GetToken(string username, string inscode = "")
+        public static object GetToken(string username,int userid, string inscode = "")
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Secret));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             
             var permClaims = new List<Claim>();
             permClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+            permClaims.Add(new Claim("id", Convert.ToString(userid)));
             permClaims.Add(new Claim("username", username));
             permClaims.Add(new Claim("institutecode", inscode));
             

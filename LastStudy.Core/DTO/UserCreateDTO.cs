@@ -9,6 +9,7 @@ namespace LastStudy.Core.DTO
 {
     public class UserCreateDTO : BaseDTO
     {
+        public int Id { get; set; }
         [Required]
         public string FullName { get; set; }
         [Required]

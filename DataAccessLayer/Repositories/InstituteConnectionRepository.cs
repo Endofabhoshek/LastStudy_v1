@@ -26,5 +26,10 @@ namespace DataAccessLayer.Repositories
                 return false;
             }
         }
+
+        public InstituteConnection GetByINSCode(string instituteCode)
+        {
+            return _records.FirstOrDefault(x => x.InstituteCode == instituteCode);
+        }
     }
 }

@@ -56,8 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\BaseDTO.cs" />
+    <Compile Include="DTO\CourseDTO.cs" />
     <Compile Include="DTO\InstituteDTO.cs" />
+    <Compile Include="DTO\SubjectDTO.cs" />
     <Compile Include="DTO\UserCreateDTO.cs" />
+    <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\Institute.cs" />
     <Compile Include="Entities\InstituteConnection.cs" />
     <Compile Include="Entities\LSRole.cs" />
@@ -66,16 +69,20 @@
     <Compile Include="Entities\LSUserLogin.cs" />
     <Compile Include="Entities\LSUserRole.cs" />
     <Compile Include="Entities\Student.cs" />
+    <Compile Include="Entities\Subject.cs" />
     <Compile Include="Entities\Teacher.cs" />
+    <Compile Include="Entities\UserCourse.cs" />
     <Compile Include="Entities\UserInstitute.cs" />
     <Compile Include="Interfaces\BOObjects\IInstituteBO.cs" />
     <Compile Include="Interfaces\DependencyInjector\IServiceLocator.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
+    <Compile Include="Interfaces\Repositories\ICourseRepository.cs" />
     <Compile Include="Interfaces\Repositories\IInstituteRepository.cs" />
     <Compile Include="Interfaces\Repositories\IInstituteConnectionRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepositoryWithId.cs" />
     <Compile Include="Interfaces\Repositories\IStudentRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ISubjectRepository.cs" />
     <Compile Include="Interfaces\Repositories\ITeacherRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUserInstituteRepository.cs" />
     <Compile Include="Interfaces\UnitOfWork\IUnitOfWork.cs" />

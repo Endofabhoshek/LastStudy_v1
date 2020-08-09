@@ -10,7 +10,11 @@ namespace LastStudy.Core.Interfaces.BOObjects
     public interface IInstituteBO
     {
         int AddInstitute(InstituteDTO instituteDTO);
+        int EditInstitute(InstituteDTO instituteDTO);
+        int AddCourse(CourseDTO courseDTO);
+        int AddSubject(SubjectDTO subjectDTO);
         void InitINS(string connectionName);
+        
         int AddUser(UserCreateDTO userCreateDTO, int userID);
     }
 }

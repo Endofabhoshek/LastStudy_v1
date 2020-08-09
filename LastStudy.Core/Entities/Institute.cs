@@ -22,6 +22,8 @@ namespace LastStudy.Core.Entities
         public string City { get; set; }
         public string Country { get; set; }
         public string ZipCode { get; set; }
+        public ICollection<Course> Courses { get; set; }
+        public DateTime FoundedYear { get; set; }
 
     }
 }

@@ -8,6 +8,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Web.Http;
 using LastStudy.Core.Interfaces.DependencyInjector;
+using Microsoft.Owin.Security;
+using Microsoft.AspNetCore.Http;
 
 namespace LastStudy.Controllers
 {
@@ -32,6 +34,13 @@ namespace LastStudy.Controllers
             get
             {
                 return _LSRoleManager ?? Request.GetOwinContext().GetUserManager<LSRoleManager>();
+            }
+        }
+        protected IAuthenticationManager AuthManager
+        {
+            get
+            {
+                return Request.GetOwinContext().Authentication;
             }
         }
     }

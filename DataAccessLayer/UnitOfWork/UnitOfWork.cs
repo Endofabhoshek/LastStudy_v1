@@ -52,6 +52,16 @@ namespace DataAccessLayer.UnitOfWork
             get { return GetRepository<IStudentRepository>(); }
         }
 
+        public ICourseRepository Courses
+        {
+            get { return GetRepository<ICourseRepository>(); }
+        }
+
+        public ISubjectRepository Subjects
+        {
+            get { return GetRepository<ISubjectRepository>(); }
+        }
+
         private T GetRepository<T>() where T : class
         {
             if (string.IsNullOrEmpty(this._connectionName))
@@ -160,7 +170,7 @@ namespace DataAccessLayer.UnitOfWork
 
         public int SaveINS()
         {
-            
+
             try
             {
                 if (this._connectionName == null)

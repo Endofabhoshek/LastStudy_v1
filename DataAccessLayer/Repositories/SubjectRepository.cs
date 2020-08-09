@@ -9,16 +9,10 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class InstituteRepository : RepositoryWithId<Institute>, IInstituteRepository
+    public class SubjectRepository : RepositoryWithId<Subject>, ISubjectRepository
     {
-        public InstituteRepository(IServiceLocator serviceLocator) : base(serviceLocator)
+        public SubjectRepository(IServiceLocator serviceLocator) : base(serviceLocator)
         {
-
-        }
-
-        public Institute FindById(int instituteId)
-        {
-            return _records.FirstOrDefault(x => x.Id == instituteId);
         }
     }
 }

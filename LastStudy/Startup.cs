@@ -43,10 +43,10 @@ namespace LastStudy
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = ConfigurationManager.AppSettings["jwtSecret"],
+                    ValidIssuer = ConfigurationManager.AppSettings["issuer"],
                     ValidAudience = ConfigurationManager.AppSettings["issuer"],
                     
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my_secret_key_12345"))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ConfigurationManager.AppSettings["jwtSecret"]))
                 }
             }); ;
 

@@ -38,6 +38,7 @@ namespace DataAccessLayer.DbContexts
 
             modelBuilder.Entity<LSUser>().ToTable("lsusers");
             modelBuilder.Entity<Teacher>().ToTable("teachers");
+            modelBuilder.Entity<Student>().ToTable("students");
             modelBuilder.Entity<LSRole>().ToTable("lsroles");
             modelBuilder.Entity<LSUserRole>().HasKey(x => x.Id).ToTable("lsuser_roles");
             modelBuilder.Entity<LSUserLogin>().ToTable("lsuser_logins");
@@ -98,7 +99,8 @@ namespace DataAccessLayer.DbContexts
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Institute>().ToTable("institute_branches");
-
+            modelBuilder.Entity<Course>().ToTable("courses");
+            modelBuilder.Entity<Subject>().ToTable("subjects");
         }
     }
 

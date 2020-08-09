@@ -88,5 +88,77 @@ namespace BusinessLogicLayer.Objects
             //}
             return 0;
         }
+
+        public int EditInstitute(InstituteDTO instituteDTO)
+        {
+            try
+            {
+                using (var unitOfWork = _serviceLocator.Resolve<IUnitOfWork>())
+                {
+                    unitOfWork.InitINS(this._insConnection);
+                    var institute = unitOfWork.Insitutes.FindById(instituteDTO.Id);
+
+                    if (institute != null)
+                    {
+                        institute.Address = instituteDTO.Address;
+                        institute.Email = instituteDTO.Email;
+                        institute.PhoneNumber = instituteDTO.PhoneNumber;
+                        institute.MobileNumber = instituteDTO.MobileNumber;
+                        institute.City = instituteDTO.City;
+                        institute.Country = instituteDTO.Country;
+                        return unitOfWork.SaveINS();
+                    }
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int AddCourse(CourseDTO courseDTO)
+        {
+            try
+            {
+                using (var unitOfWork = _serviceLocator.Resolve<IUnitOfWork>())
+                {
+                    unitOfWork.InitINS(this._insConnection);
+                    Course course = new Course()
+                    {
+                        InstituteId = courseDTO.InstituteId,
+                        Name = courseDTO.Name
+                    };
+                    unitOfWork.Courses.Add(course);
+                    return unitOfWork.SaveINS();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int AddSubject(SubjectDTO subjectDTO)
+        {
+            try
+            {
+                using (var unitOfWork = _serviceLocator.Resolve<IUnitOfWork>())
+                {
+                    unitOfWork.InitINS(this._insConnection);
+                    Subject subject = new Subject()
+                    {
+                        CourseId = subjectDTO.CourseId,
+                        Name = subjectDTO.Name
+                    };
+                    unitOfWork.Subjects.Add(subject);
+                    return unitOfWork.SaveINS();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
