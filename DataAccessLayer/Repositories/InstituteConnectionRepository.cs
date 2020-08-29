@@ -17,7 +17,7 @@ namespace DataAccessLayer.Repositories
 
         public bool FindByINSCode(string instituteCode)
         {
-            if (this._records.Where(x => x.InstituteCode == instituteCode).Count() > 0)
+            if (this._records.Where(x => x.InstituteCode == instituteCode && x.IsActive).Count() > 0)
             {
                 return true;
             }
@@ -27,9 +27,14 @@ namespace DataAccessLayer.Repositories
             }
         }
 
+        public List<InstituteConnection> GetActiveInstitutes()
+        {
+            return this._records.Where(x => x.IsActive).ToList();
+        }
+
         public InstituteConnection GetByINSCode(string instituteCode)
         {
-            return _records.FirstOrDefault(x => x.InstituteCode == instituteCode);
+            return _records.FirstOrDefault(x => x.InstituteCode == instituteCode && x.IsActive);
         }
     }
 }

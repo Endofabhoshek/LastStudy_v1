@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace LastStudy.Core.Entities
 {
-    //public class UserCourse : IEntity
-    //{
-    //    public int Id { get; set; }
-    //    public Course Course { get; set; }
-    //    MyProperty { get; set; }
-    //}
+    public class LSInvitedUser : IEntity
+    {
+        public int Id { get; set; }
+        public string InstituteCode { get; set; }
+        public string Guid { get; set; }
+    }
 }

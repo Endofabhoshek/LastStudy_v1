@@ -11,5 +11,6 @@ namespace LastStudy.Core.Interfaces.Repositories
     {
         bool FindByINSCode(string instituteCode);
         InstituteConnection GetByINSCode(string instituteCode);
+        List<InstituteConnection> GetActiveInstitutes();
     }
 }

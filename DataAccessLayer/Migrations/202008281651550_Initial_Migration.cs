@@ -14,6 +14,7 @@ namespace DataAccessLayer.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         InstituteCode = c.String(nullable: false, maxLength: 255, storeType: "nvarchar"),
                         DatabaseName = c.String(nullable: false, maxLength: 255, storeType: "nvarchar"),
+                        IsActive = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -54,6 +55,12 @@ namespace DataAccessLayer.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         FullName = c.String(unicode: false),
+                        AddressLine1 = c.String(unicode: false),
+                        AddressLine2 = c.String(unicode: false),
+                        City = c.String(unicode: false),
+                        State = c.String(unicode: false),
+                        Country = c.String(unicode: false),
+                        PinCode = c.String(unicode: false),
                         DateCreated = c.DateTime(nullable: false, precision: 0),
                         IsInstituteAdmin = c.Boolean(nullable: false),
                         Email = c.String(maxLength: 256, storeType: "nvarchar"),
@@ -111,6 +118,16 @@ namespace DataAccessLayer.Migrations
                 .Index(t => t.InstituteConnectionId);
             
             CreateTable(
+                "dbo.lsinvited_user",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        InstituteCode = c.String(unicode: false),
+                        Guid = c.String(unicode: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.teachers",
                 c => new
                     {
@@ -159,6 +176,7 @@ namespace DataAccessLayer.Migrations
             DropIndex("dbo.lsroles", "RoleNameIndex");
             DropTable("dbo.students");
             DropTable("dbo.teachers");
+            DropTable("dbo.lsinvited_user");
             DropTable("dbo.user_institutes");
             DropTable("dbo.lsuser_logins");
             DropTable("dbo.lsuser_claims");

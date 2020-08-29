@@ -28,6 +28,7 @@ namespace LastStudy
             app.CreatePerOwinContext<LSDbContext>(LSDbContext.Create);
             app.CreatePerOwinContext<LSUserManager>(LSUserManager.Create);
             app.CreatePerOwinContext<LSRoleManager>(LSRoleManager.Create);
+            
 
             //app.UseCookieAuthentication(new CookieAuthenticationOptions
             //{

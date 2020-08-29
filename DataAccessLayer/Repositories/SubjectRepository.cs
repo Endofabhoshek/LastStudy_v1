@@ -14,5 +14,10 @@ namespace DataAccessLayer.Repositories
         public SubjectRepository(IServiceLocator serviceLocator) : base(serviceLocator)
         {
         }
+
+        public IQueryable<Subject> GetSubjects(int courseID)
+        {
+            return this._records.Where(x => x.CourseId == courseID);
+        }
     }
 }

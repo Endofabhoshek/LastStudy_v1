@@ -57,12 +57,25 @@
   <ItemGroup>
     <Compile Include="DTO\BaseDTO.cs" />
     <Compile Include="DTO\CourseDTO.cs" />
+    <Compile Include="DTO\CourseGroupCourseDTO.cs" />
+    <Compile Include="DTO\CourseGroupDTO.cs" />
+    <Compile Include="DTO\InstituteCodeWithIdDTO.cs" />
     <Compile Include="DTO\InstituteDTO.cs" />
+    <Compile Include="DTO\InstituteLocationDTO.cs" />
+    <Compile Include="DTO\RoleDTO.cs" />
     <Compile Include="DTO\SubjectDTO.cs" />
     <Compile Include="DTO\UserCreateDTO.cs" />
     <Compile Include="Entities\Course.cs" />
+    <Compile Include="Entities\CourseGroupCourse.cs" />
+    <Compile Include="Entities\CourseSubjects.cs" />
     <Compile Include="Entities\Institute.cs" />
     <Compile Include="Entities\InstituteConnection.cs" />
+    <Compile Include="Entities\InstituteLocation.cs" />
+    <Compile Include="Entities\InstituteRole.cs" />
+    <Compile Include="Entities\InstituteUserRole.cs" />
+    <Compile Include="Entities\InstituteUser.cs" />
+    <Compile Include="Entities\InvitedUser.cs" />
+    <Compile Include="Entities\LSInvitedUser.cs" />
     <Compile Include="Entities\LSRole.cs" />
     <Compile Include="Entities\LSUser.cs" />
     <Compile Include="Entities\LSUserClaim.cs" />
@@ -71,14 +84,25 @@
     <Compile Include="Entities\Student.cs" />
     <Compile Include="Entities\Subject.cs" />
     <Compile Include="Entities\Teacher.cs" />
-    <Compile Include="Entities\UserCourse.cs" />
+    <Compile Include="Entities\CourseGroup.cs" />
     <Compile Include="Entities\UserInstitute.cs" />
+    <Compile Include="Flags\Flag.cs" />
+    <Compile Include="Helpers\DictionaryExtend.cs" />
     <Compile Include="Interfaces\BOObjects\IInstituteBO.cs" />
     <Compile Include="Interfaces\DependencyInjector\IServiceLocator.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
+    <Compile Include="Interfaces\Repositories\ICourseGroupCourseRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ICourseGroupRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICourseRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IInstituteLocationRepository.cs" />
     <Compile Include="Interfaces\Repositories\IInstituteRepository.cs" />
     <Compile Include="Interfaces\Repositories\IInstituteConnectionRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IInstituteRoleRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IInstituteUserRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IInstituteUserRoleRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IInvitedUserRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ILSInvitedUserRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ILSUserRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepositoryWithId.cs" />
     <Compile Include="Interfaces\Repositories\IStudentRepository.cs" />
@@ -92,8 +116,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

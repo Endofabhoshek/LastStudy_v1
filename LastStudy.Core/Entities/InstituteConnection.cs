@@ -12,5 +12,6 @@ namespace LastStudy.Core.Entities
         public int Id { get; set; }
         public string InstituteCode { get; set; }
         public string DatabaseName { get; set; } // since its a single server
+        public bool IsActive { get; set; }
     }
 }

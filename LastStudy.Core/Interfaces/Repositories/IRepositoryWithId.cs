@@ -10,5 +10,6 @@ namespace LastStudy.Core.Interfaces.Repositories
     {
         T GetById(int id);
         List<T> GetAll();
+        void RemoveById(int id);
     }
 }

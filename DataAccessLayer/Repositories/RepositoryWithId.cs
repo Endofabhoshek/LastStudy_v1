@@ -25,5 +25,10 @@ namespace DataAccessLayer.Repositories
             T entity = this._records.FirstOrDefault(x => x.Id == id);
             return entity;
         }
+
+        public void RemoveById(int id)
+        {
+            this._records.Remove(GetById(id));
+        }
     }
 }

@@ -15,16 +15,25 @@ namespace LastStudy.Core.Interfaces.UnitOfWork
         void InitLSDb();
 
         IInstituteRepository Insitutes { get; }
-        IInstituteConnectionRepository InsituteConnections { get; }
+        IInstituteConnectionRepository InstituteConnections { get; }
         IUserInstituteRepository UserInstitutes { get; }
+        IInstituteUserRepository InstituteUsers { get; }
         DbSet<TEntity> Set<TEntity>(string connectionName) where TEntity : class;
         ITeacherRepository Teachers { get; }
         IStudentRepository Students { get; }
         ICourseRepository Courses { get; }
+        ICourseGroupRepository CourseGroups { get; }
         ISubjectRepository Subjects { get; }
-
+        IInstituteRoleRepository InstituteRoles { get; }
+        IInvitedUserRepository InvitedUsers { get; }
+        IInstituteLocationRepository InstituteLocations { get; }
+        ICourseGroupCourseRepository CourseGroupCourses { get; }
+        ILSUserRepository LSUsers { get; }
+        ILSInvitedUserRepository LSInvitedUsers { get; }
+        IInstituteUserRoleRepository InstituteUserRoles { get; }
         DbSet<TModel> Collection<TModel>() where TModel : class;
         int SaveLS();
         int SaveINS();
+        string InsDatabaseName();
     }
 }

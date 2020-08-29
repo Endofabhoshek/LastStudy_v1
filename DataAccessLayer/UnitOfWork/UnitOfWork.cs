@@ -32,7 +32,7 @@ namespace DataAccessLayer.UnitOfWork
             get { return GetRepository<IInstituteRepository>(); }
         }
 
-        public IInstituteConnectionRepository InsituteConnections
+        public IInstituteConnectionRepository InstituteConnections
         {
             get { return GetRepository<IInstituteConnectionRepository>(); }
         }
@@ -60,6 +60,51 @@ namespace DataAccessLayer.UnitOfWork
         public ISubjectRepository Subjects
         {
             get { return GetRepository<ISubjectRepository>(); }
+        }
+
+        public IInstituteRoleRepository InstituteRoles
+        {
+            get { return GetRepository<IInstituteRoleRepository>(); }
+        }
+
+        public ICourseGroupRepository CourseGroups
+        {
+            get { return GetRepository<ICourseGroupRepository>(); }
+        }
+
+        public IInvitedUserRepository InvitedUsers
+        {
+            get { return GetRepository<IInvitedUserRepository>(); }
+        }
+
+        public IInstituteLocationRepository InstituteLocations
+        {
+            get { return GetRepository<IInstituteLocationRepository>(); }
+        }
+
+        public ILSUserRepository LSUsers
+        {
+            get { return GetRepository<ILSUserRepository>(); }
+        }
+
+        public IInstituteUserRepository InstituteUsers
+        {
+            get { return GetRepository<IInstituteUserRepository>(); }
+        }
+
+        public ICourseGroupCourseRepository CourseGroupCourses
+        {
+            get { return GetRepository<ICourseGroupCourseRepository>(); }
+        }
+
+        public ILSInvitedUserRepository LSInvitedUsers
+        {
+            get { return GetRepository<ILSInvitedUserRepository>(); }
+        }
+
+        public IInstituteUserRoleRepository InstituteUserRoles
+        {
+            get { return GetRepository<IInstituteUserRoleRepository>(); }
         }
 
         private T GetRepository<T>() where T : class
@@ -184,7 +229,11 @@ namespace DataAccessLayer.UnitOfWork
             {
                 throw ex;
             }
+        }
 
+        public string InsDatabaseName()
+        {
+            return this._inscontext.Database.Connection.Database;
         }
     }
 }

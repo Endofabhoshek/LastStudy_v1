@@ -14,5 +14,10 @@ namespace DataAccessLayer.Repositories
         public CourseRepository(IServiceLocator serviceLocator) : base(serviceLocator)
         {
         }
+
+        public List<Subject> GetCourses(int courseID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

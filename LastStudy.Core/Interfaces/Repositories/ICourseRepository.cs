@@ -9,5 +9,6 @@ namespace LastStudy.Core.Interfaces.Repositories
 {
     public interface ICourseRepository : IRepositoryWithId<Course>
     {
+        List<Subject> GetCourses(int courseID);
     }
 }

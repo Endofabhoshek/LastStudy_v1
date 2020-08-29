@@ -45,6 +45,7 @@ namespace DataAccessLayer.DbContexts
             modelBuilder.Entity<LSUserClaim>().ToTable("lsuser_claims");
 
             modelBuilder.Entity<UserInstitute>().ToTable("user_institutes");
+            modelBuilder.Entity<LSInvitedUser>().ToTable("lsinvited_user");
         }
     }
 
@@ -99,8 +100,16 @@ namespace DataAccessLayer.DbContexts
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Institute>().ToTable("institute_branches");
+            modelBuilder.Entity<CourseGroup>().ToTable("course_groups");
             modelBuilder.Entity<Course>().ToTable("courses");
+            modelBuilder.Entity<CourseGroupCourse>().ToTable("coursegroup_courses");
+            modelBuilder.Entity<CourseSubjects>().ToTable("course_subjects");
             modelBuilder.Entity<Subject>().ToTable("subjects");
+            modelBuilder.Entity<InstituteRole>().ToTable("instituteroles");
+            modelBuilder.Entity<InstituteUser>().ToTable("instituteusers");
+            modelBuilder.Entity<InstituteUserRole>().ToTable("instituteuser_roles");
+            modelBuilder.Entity<InstituteLocation>().ToTable("institutelocations");
+            modelBuilder.Entity<InvitedUser>().ToTable("invited_user");
         }
     }
 

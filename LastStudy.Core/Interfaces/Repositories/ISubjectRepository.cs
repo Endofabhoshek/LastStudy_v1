@@ -9,5 +9,6 @@ namespace LastStudy.Core.Interfaces.Repositories
 {
     public interface ISubjectRepository : IRepositoryWithId<Subject>
     {
+        IQueryable<Subject> GetSubjects(int courseID);
     }
 }

@@ -1,4 +1,5 @@
-﻿using LastStudy.Core.Interfaces;
+﻿using LastStudy.Core.Flags;
+using LastStudy.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace LastStudy.Core.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Subject> Subjects { get; set; }
-        public int InstituteId { get; set; }
-        public Institute Institute { get; set; }
+        public string CourseCode { get; set; }
+        public decimal CourseAmount { get; set; }
+        public Credit Credit { get; set; }
     }
 }
